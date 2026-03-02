@@ -25,7 +25,7 @@ Für jedes Budget können Ausgaben erfasst werden, sodass geplantes Budget, ausg
       <a href="https://github.com/arj4ng"><strong>@arj4ng</strong></a>
     </td>
     <td align="center">
-      <img src="Projektwoche1/ReadMe%20Assets/Alisan.png" width="90" alt="AlisanAys" /><br/>
+      <img src="Projektwoche1/ReadMe%20Assets/Alisan1.png" width="90" alt="AlisanAys" /><br/>
       <a href="https://github.com/AlisanAys"><strong>@AlisanAys</strong></a>
     </td>
     <td align="center">
