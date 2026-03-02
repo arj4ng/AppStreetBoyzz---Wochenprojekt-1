@@ -16,6 +16,11 @@
 			path = Projektwoche1;
 			sourceTree = "<group>";
 		};
+		F4EF423A2F559471000259E2 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +39,7 @@
 			children = (
 				DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */,
 				DB8A47BE2D43AFD3001C2B3B /* Products */,
+				F4EF423A2F559471000259E2 /* Views */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +68,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */,
+				F4EF423A2F559471000259E2 /* Views */,
 			);
 			name = Projektwoche1;
 			packageProductDependencies = (
