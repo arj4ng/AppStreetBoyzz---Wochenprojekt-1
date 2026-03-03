@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct BudgetDetailView: View {
     
@@ -13,10 +14,44 @@ struct BudgetDetailView: View {
     @Environment(\.modelContext) private var context
     
     var body: some View {
-        Text("Geplant: \(budget.plannedAmount) Euro")
-        Text("Ausgegeben: \(budget.totalSpent) Euro")
-        Text("Verfügbar: \(budget.remainingAmount) Euro")
-            .foregroundStyle(budget.remainingAmount < 100 ? .red : .green)
+        
+        VStack(spacing: 20) {
+            
+            VStack(spacing: 8) {
+                
+                Text("Geplant: \(budget.plannedAmount) Euro")
+                    .font(.title2)
+                Text("Ausgegeben: \(budget.totalSpent) Euro")
+                
+                Text("Verfügbar: \(budget.remainingAmount) Euro")
+                    .foregroundStyle(budget.remainingAmount < 100 ? .red : .green)
+                    .bold()
+                
+                    
+            }
+            .padding()
+            .background(Color.gray.opacity(0.1))
+            .cornerRadius(12)
+            .padding(.horizontal)
+            
+            List {
+                
+                Section("Ausgaben") {
+                    
+                    if budget.expenses.isEmpty {
+                        Text("Keine Ausgaben vorhanden")
+                        
+                    }
+                }
+            }
+        }
+        
     }
 }
 
+#Preview {
+    let budget = Budget(name: "test", plannedAmount: 1000.00)
+    
+    return BudgetDetailView(budget: budget)
+        .modelContainer(for: Budget.self)
+}
