@@ -14,7 +14,7 @@ class Budget: Identifiable {
     var name: String
     var plannedAmount: Double
 
-//    @Relationship(deleteRule: .cascade)
+    @Relationship(deleteRule: .cascade)
     var expenses: [Expense] = []
 
     init(id: UUID = UUID(), name: String, plannedAmount: Double) {

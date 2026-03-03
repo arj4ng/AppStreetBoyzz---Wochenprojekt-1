@@ -39,9 +39,10 @@ struct ExpenseAddView: View {
                         info: info,
                         budget: budget
                     )
-                    
+                    budget.expenses.append(newExpense)  
                     context.insert(newExpense)
                     dismiss()
+                
                 }
             }
             .navigationTitle("Neue Ausgabe")

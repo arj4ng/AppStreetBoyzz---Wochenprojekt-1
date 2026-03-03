@@ -45,12 +45,12 @@ struct BudgetListView: View {
                                     context.delete(budget)
                                 }
                             }
-                            NavigationLink(""){
+                            NavigationLink("Details anzeigen"){
                                 BudgetDetailView(budget: budget)
                             }
                             
                         }
-                        
+                       
                     }
                 }
 
