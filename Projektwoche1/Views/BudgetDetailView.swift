@@ -25,7 +25,7 @@ struct BudgetDetailView: View {
 
                 Text("Verfügbar: \(budget.remainingAmount.formatted()) Euro")
                     .foregroundStyle(
-                        budget.remainingAmount < 100 ? .red : .green
+                        budget.remainingAmount < budget.plannedAmount * 0.1 ? .red : .green
                     )
                     .bold()
 
