@@ -26,24 +26,27 @@ struct ExpenseAddView: View {
                     TextField("Betrag", value: $amount, format: .number)
                         .keyboardType(.decimalPad)
                         .padding(8)
-                        .background(.gray)
+                        .background(.gray.opacity(0.3))
                         .cornerRadius(10)
+                    Text("€")
+                }
+                
+                Button("Speichern") {
+                    
+                    let newExpense = Expense(
+                        title: title,
+                        amount: NSDecimalNumber(decimal: amount).doubleValue,
+                        info: info,
+                        budget: budget
+                    )
+                    
+                    context.insert(newExpense)
+                    dismiss()
                 }
             }
-            Button("Speichern") {
-                
-                let newExpense = Expense(
-                    title: title,
-                    amount: NSDecimalNumber(decimal: amount).doubleValue,
-                    info: info,
-                    budget: budget
-                )
-                
-                context.insert(newExpense)
-                dismiss()
-            }
-        }
             .navigationTitle("Neue Ausgabe")
+        }
+            
         }
     }
 

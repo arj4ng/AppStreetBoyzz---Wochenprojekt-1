@@ -20,21 +20,43 @@ struct BudgetListView: View {
         NavigationStack {
             List {
                 ForEach(budgets) { budget in
-                    HStack{
-                        Text(budget.name)
-                        Spacer()
-                        Text("\(Int(budget.plannedAmount)) Euro")
-                    }
-                    HStack{
-                        Text("Verbleibend:")
-                        Spacer()
-                        Text("\(Int(budget.remainingAmount)) Euro")
-                            .foregroundStyle(
-                                   budget.remainingAmount < budget.plannedAmount * 0.1 ? .red : .green
-                               )
+                    Section{
+                        VStack(spacing: 8){
+                            HStack{
+                                Text(budget.name)
+                                    .bold()
+                                Spacer()
+                                Text("\(Int(budget.plannedAmount)) Euro")
+                                    .bold()
+                            }
+                            HStack{
+                                Text("Verbleibend:")
+                                Spacer()
+                                Text("\(Int(budget.remainingAmount)) Euro")
+                                    .foregroundStyle(
+                                        budget.remainingAmount < budget.plannedAmount * 0.1 ? .red : .green
+                                    )
+                                
+                                
+                            }
+                            ProgressView(budget: budget)
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
+                                    context.delete(budget)
+                                }
+                            }
+                            NavigationLink(""){
+                                BudgetDetailView(budget: budget)
+                            }
+                            
+                        }
+                        
                     }
                 }
+
+                
             }
+            
             .navigationTitle("Budgets")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

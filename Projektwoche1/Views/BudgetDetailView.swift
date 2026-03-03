@@ -9,7 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct BudgetDetailView: View {
-
+    @State var addExpense: Bool = false
     var budget: Budget
     @Environment(\.modelContext) private var context
 
@@ -34,11 +34,13 @@ struct BudgetDetailView: View {
             .background(Color.gray.opacity(0.1))
             .cornerRadius(12)
             .padding(.horizontal)
-
+            Button("Hinzufügen") {
+                addExpense.toggle()
+            }
             List {
 
                 Section("Ausgaben") {
-
+                  
                     if budget.expenses.isEmpty {
                         Text("Keine Ausgaben vorhanden")
                             .foregroundStyle(.secondary)
@@ -70,6 +72,10 @@ struct BudgetDetailView: View {
                 }
             }
 
+        }
+        .sheet(isPresented: $addExpense) {
+            ExpenseAddView(budget: budget)
+                .presentationDetents([.height(400), .large])
         }
         .navigationTitle(budget.name)
     }
