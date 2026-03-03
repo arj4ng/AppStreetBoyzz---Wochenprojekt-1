@@ -85,6 +85,7 @@ struct BudgetDetailView: View {
             let expense = budget.expenses[index]
             context.delete(expense)
         }
+        try? context.save()
     }
 
 }

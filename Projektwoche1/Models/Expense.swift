@@ -14,10 +14,10 @@ class Expense: Identifiable {
     var id = UUID()
     var title: String
     var amount: Double
-
     var info: String
-
+    @Relationship(inverse: \Budget.expenses)
     var budget: Budget
+
 
     init(
         id: UUID = UUID(),
