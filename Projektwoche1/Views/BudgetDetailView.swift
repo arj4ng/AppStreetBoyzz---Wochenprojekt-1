@@ -19,11 +19,11 @@ struct BudgetDetailView: View {
 
             VStack(spacing: 8) {
 
-                Text("Geplant: \(budget.plannedAmount) Euro")
+                Text("Geplant: \(budget.plannedAmount.formatted()) Euro")
                     .font(.title2)
-                Text("Ausgegeben: \(budget.totalSpent) Euro")
+                Text("Ausgegeben: \(budget.totalSpent.formatted()) Euro")
 
-                Text("Verfügbar: \(budget.remainingAmount) Euro")
+                Text("Verfügbar: \(budget.remainingAmount.formatted()) Euro")
                     .foregroundStyle(
                         budget.remainingAmount < 100 ? .red : .green
                     )

@@ -23,7 +23,6 @@ class Expense: Identifiable {
         id: UUID = UUID(),
         title: String,
         amount: Double,
-
         info: String,
         budget: Budget
     ) {
