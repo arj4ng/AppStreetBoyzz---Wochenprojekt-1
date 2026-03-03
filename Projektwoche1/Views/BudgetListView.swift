@@ -14,12 +14,18 @@ struct BudgetListView: View {
     @Query private var budgets: [Budget]
     
     @State private var showSheet: Bool = false
+    @State private var showDetails: Bool = false
     
     var body: some View {
         NavigationStack {
             List {
                 ForEach(budgets) { budget in
-                    Text(budget.name)
+                    HStack{
+                        Text(budget.name)
+                        Spacer()
+                        Text("\(Int(budget.plannedAmount)) Euro")
+
+                    }
                 }
             }
             .navigationTitle("Budgets")
@@ -43,4 +49,5 @@ struct BudgetListView: View {
 
 #Preview {
     BudgetListView()
+        .modelContainer(for: [Budget.self], inMemory: true)
 }

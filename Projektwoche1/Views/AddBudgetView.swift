@@ -4,7 +4,7 @@
 //
 //  Created by Nils Adomeit on 02.03.26.
 //
-
+import SwiftData
 import SwiftUI
 
 struct AddBudgetView: View {

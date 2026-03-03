@@ -20,4 +20,11 @@ class Budget:Identifiable{
         self.name = name
         self.plannedAmount = plannedAmount
     }
+    var totalSpent: Double {
+        expenses.reduce(0) { $0 + $1.amount }
+    }
+    
+    var remainingAmount: Double {
+        plannedAmount - totalSpent
+    }
 }
