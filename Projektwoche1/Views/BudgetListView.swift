@@ -16,7 +16,15 @@ struct BudgetListView: View {
     @State private var showSheet: Bool = false
     @State private var showDetails: Bool = false
     
+    var totalBudget: Double {
+        budgets.reduce(0) { $0 + $1.plannedAmount }
+    }
+    
     var body: some View {
+        Text("Gesamtbudget: \(totalBudget, format: .currency(code: "EUR"))")
+            .font(.headline)
+            .padding()
+        
         NavigationStack {
             List {
                 ForEach(budgets) { budget in
