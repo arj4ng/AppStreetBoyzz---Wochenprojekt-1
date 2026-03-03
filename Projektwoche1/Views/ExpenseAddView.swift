@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct ExpenseAddView: View {
+    @State var title = ""
+    @State private var amount: Decimal = 12.34
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            Form {
+                TextField("Titel", text: $title)
+                TextField("Betrag", value: $amount, format: .number)
+                    .keyboardType(.decimalPad)
+            }
+            .navigationTitle("Neue Ausgabe")
+        }
     }
 }
-
 #Preview {
     ExpenseAddView()
 }
