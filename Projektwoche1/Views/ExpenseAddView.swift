@@ -6,23 +6,47 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ExpenseAddView: View {
+    
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
     @State var title = ""
-    @State private var amount: Decimal = 12.34
-    
-    
+    @State var info = ""
+    @State private var amount: Decimal  = 0.0
+    var budget: Budget
     var body: some View {
         NavigationStack {
-            Form {
-                TextField("Titel", text: $title)
-                TextField("Betrag", value: $amount, format: .number)
-                    .keyboardType(.decimalPad)
+            List {
+                TextField("Ausgabenname", text: $title)
+                TextField("Infos", text: $info)
+                HStack{
+                    Text("Wieviel Bezahlt ?")
+                    TextField("Betrag", value: $amount, format: .number)
+                        .keyboardType(.decimalPad)
+                        .padding(8)
+                        .background(.gray)
+                        .cornerRadius(10)
+                }
             }
+            Button("Speichern") {
+                
+                let newExpense = Expense(
+                    title: title,
+                    amount: NSDecimalNumber(decimal: amount).doubleValue,
+                    info: info,
+                    budget: budget
+                )
+                
+                context.insert(newExpense)
+                dismiss()
+            }
+        }
             .navigationTitle("Neue Ausgabe")
         }
     }
-}
+
 #Preview {
-    ExpenseAddView()
+    ExpenseAddView( budget: Budget(name: "Essen", plannedAmount: 400))
 }
