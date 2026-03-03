@@ -9,12 +9,14 @@ import Foundation
 import SwiftData
 
 @Model
-class Budget:Identifiable{
+class Budget: Identifiable {
     var id = UUID()
     var name: String
     var plannedAmount: Double
+
+//    @Relationship(deleteRule: .cascade)
     var expenses: [Expense] = []
-    
+
     init(id: UUID = UUID(), name: String, plannedAmount: Double) {
         self.id = id
         self.name = name
@@ -23,7 +25,7 @@ class Budget:Identifiable{
     var totalSpent: Double {
         expenses.reduce(0) { $0 + $1.amount }
     }
-    
+
     var remainingAmount: Double {
         plannedAmount - totalSpent
     }
