@@ -17,26 +17,45 @@ struct BudgetDetailView: View {
 
         VStack(spacing: 20) {
 
-            VStack(spacing: 8) {
-
-                Text("Geplant: \(budget.plannedAmount.formatted()) Euro")
-                    .font(.title2)
-                Text("Ausgegeben: \(budget.totalSpent.formatted()) Euro")
-
-                Text("Verfügbar: \(budget.remainingAmount.formatted()) Euro")
-                    .foregroundStyle(
-                        budget.remainingAmount < budget.plannedAmount * 0.1 ? .red : .green
-                    )
+            VStack(alignment: .leading ,spacing: 10) {
+                HStack {
+                    Image(systemName: "sparkles.2")
+                    Text("Budget:")
+                        .font(.title2)
+                        .bold()
+                    Text(" \(budget.plannedAmount.formatted()) €")
+                }
+                HStack {
+                    Image(systemName: "minus")
+                    Text("Ausgegeben:")
+                        .bold()
+                    Text(" \(budget.totalSpent.formatted()) €")
+                }
+                HStack {
+                    Image(systemName: "sun.max")
+                    Text("Verfügbar:")
+                        .bold()
+                    Text(" \(budget.remainingAmount.formatted()) €")
+                        .foregroundStyle(
+                            budget.remainingAmount < budget.plannedAmount * 0.1 ? .red : .green
+                        )
+                }
                     .bold()
-
             }
             .padding()
             .background(Color.gray.opacity(0.1))
             .cornerRadius(12)
             .padding(.horizontal)
-            Button("Hinzufügen") {
+            
+            Button("Ausgabe hinzufügen") {
                 addExpense.toggle()
             }
+            .padding(10)
+            .background(Color.blue)
+            .cornerRadius(30)
+            .padding(10)
+            .foregroundStyle(.white)
+            
             List {
 
                 Section("Ausgaben") {

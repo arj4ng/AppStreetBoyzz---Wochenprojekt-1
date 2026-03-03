@@ -24,7 +24,6 @@ struct BudgetListView: View {
         Text("Gesamtbudget: \(totalBudget, format: .currency(code: "EUR"))")
             .font(.headline)
             .padding()
-        
         NavigationStack {
             List {
                 ForEach(budgets) { budget in
