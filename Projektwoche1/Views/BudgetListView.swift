@@ -24,7 +24,14 @@ struct BudgetListView: View {
                         Text(budget.name)
                         Spacer()
                         Text("\(Int(budget.plannedAmount)) Euro")
-
+                    }
+                    HStack{
+                        Text("Verbleibend:")
+                        Spacer()
+                        Text("\(Int(budget.remainingAmount)) Euro")
+                            .foregroundStyle(
+                                   budget.remainingAmount < budget.plannedAmount * 0.1 ? .red : .green
+                               )
                     }
                 }
             }
