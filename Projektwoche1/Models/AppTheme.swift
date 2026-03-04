@@ -1,3 +1,4 @@
+
 //
 //  AppTheme.swift
 //  Projektwoche1
@@ -14,24 +15,65 @@ struct AppTheme {
 }
 
 extension AppTheme {
-    
+    // Neutral/default themes
+    static let normal = AppTheme(
+        textColor: .primary,
+        tintColor: .blue
+    )
+
     static let cyan = AppTheme(
-        textColor: .cyan,
+        textColor: .primary,
         tintColor: .cyan
     )
+
     static let light = AppTheme(
-        textColor: .gray,
-        tintColor: .gray
+        textColor: .primary,
+        tintColor: .blue
     )
     
     static let blue = AppTheme(
-        textColor: .blue,
+        textColor: .primary,
         tintColor: .blue
     )
     
     static let mint = AppTheme(
-        textColor: .mint,
+        textColor: .primary,
         tintColor: .mint
     )
 
+    // Additional color themes
+    static let green = AppTheme(
+        textColor: .primary,
+        tintColor: .green
+    )
+
+    static let teal = AppTheme(
+        textColor: .primary,
+        tintColor: .teal
+    )
+
+    static let indigo = AppTheme(
+        textColor: .primary,
+        tintColor: .indigo
+    )
+
+    static let purple = AppTheme(
+        textColor: .primary,
+        tintColor: .purple
+    )
+
+    static let pink = AppTheme(
+        textColor: .primary,
+        tintColor: .pink
+    )
+
+    static let orange = AppTheme(
+        textColor: .primary,
+        tintColor: .orange
+    )
+
+    static let red = AppTheme(
+        textColor: .primary,
+        tintColor: .red
+    )
 }
