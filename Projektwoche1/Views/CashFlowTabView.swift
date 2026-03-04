@@ -25,6 +25,7 @@ struct CashFlowTabView: View {
             }
         }
         .font(.system(size: fontSize))
+        
     }
 }
 

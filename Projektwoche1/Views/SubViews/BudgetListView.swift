@@ -24,11 +24,11 @@ struct BudgetListView: View {
         NavigationStack {
             Text("Gesamtbudget: \(totalBudget, format: .currency(code: "EUR"))")
                 .font(.headline)
-                .padding()
+                
             List {
                 ForEach(budgets) { budget in
                     Section{
-                        VStack(spacing: 8){
+                        VStack(){
                             HStack{
                                 Text(budget.name)
                                     .bold()
@@ -43,8 +43,6 @@ struct BudgetListView: View {
                                     .foregroundStyle(
                                         budget.remainingAmount < budget.plannedAmount * 0.1 ? .red : .green
                                     )
-                                
-                                
                             }
                             ProgressView(budget: budget)
                             .swipeActions(edge: .trailing) {
@@ -54,13 +52,16 @@ struct BudgetListView: View {
                             }
                             NavigationLink("Details anzeigen"){
                                 BudgetDetailView(budget: budget)
-                            }
+                            }.foregroundStyle(.blue)
                             
                         }
                        
                     }
                 }
-
+.padding(20)
+.background(Color.white.opacity(0.5))
+.cornerRadius(30)
+.shadow(color: .black.opacity(0.6), radius: 20, x: 0, y:8)
                 
             }
             
