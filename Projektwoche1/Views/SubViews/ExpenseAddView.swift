@@ -37,7 +37,8 @@ struct ExpenseAddView: View {
                         title: title,
                         amount: NSDecimalNumber(decimal: amount).doubleValue,
                         info: info,
-                        budget: budget
+                        budget: budget,
+                        isPaid: false
                     )
                     budget.expenses.append(newExpense)  
                     context.insert(newExpense)

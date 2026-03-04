@@ -67,16 +67,23 @@ struct BudgetDetailView: View {
 
                         ForEach(budget.expenses) { expense in
                             HStack {
+                                
+                                Button {
+                                    expense.isPaid.toggle()
+                                    try? context.save()
+                                } label: {
+                                    Image(systemName: expense.isPaid ? "checkmark.circle.fill" : "circle")
+                                        .foregroundStyle(expense.isPaid ? .green : .gray)
+                                        .font(.title3)
+                                }
+                                .buttonStyle(.plain)
+                                
                                 VStack(alignment: .leading) {
                                     Text(expense.title)
                                         .font(.headline)
+                                        .strikethrough(expense.isPaid)
+                                        .foregroundStyle(expense.isPaid ? .secondary : .primary)
 
-//                                    Text(
-//                                        expense.date,
-//                                        format: .dateTime.day().month().year()
-//                                    )
-//                                    .font(.caption)
-//                                    .foregroundStyle(.secondary)
                                 }
                                 Spacer()
 
@@ -84,6 +91,7 @@ struct BudgetDetailView: View {
                                     expense.amount,
                                     format: .currency(code: "EUR")
                                 )
+                                .foregroundStyle(expense.isPaid ? .secondary : .primary)
                             }
                         }
                         .onDelete(perform: deleteExpense)
