@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>Bootcamp Team Project</strong><br>
-  <sub>Wochenprojekt · CashFlow MVP</sub>
+  <sub>Wochenprojekt · Aktueller Stand</sub>
 </p>
 
 <p align="center">
@@ -15,7 +15,8 @@
 
 ## About
 CashFlow hilft dabei, Budgets pro Kategorie im Blick zu behalten.
-Für jedes Budget können Ausgaben erfasst werden, sodass geplantes Budget, ausgegeben und verfügbar angezeigt werden.
+Budgets und zugehörige Ausgaben werden in SwiftData gespeichert.
+Die App zeigt Summen, Restbudget und Budgetverbrauch visuell an.
 
 ## Team
 <table>
@@ -39,25 +40,47 @@ Für jedes Budget können Ausgaben erfasst werden, sodass geplantes Budget, ausg
   </tr>
 </table>
 
-## MVP Features
-- Budget Übersicht mit Liste aller Budgets
-- Neues Budget per Sheet anlegen
-- Navigation zur Budget Detailansicht
-- Ausgaben pro Budget anzeigen
-- Neue Ausgabe hinzufügen
-- Budgets & Ausgaben in SwiftData speichern
-- Budgets und einzelne Ausgaben löschen
-- Summen anzeigen: geplant / ausgegeben / verfügbar
+## Implemented Features
+- SwiftData Modelle `Budget` und `Expense` mit Relationship (`deleteRule: .cascade` auf Budget-Expenses)
+- Budget-Übersicht mit `@Query` und Navigation zur Detailansicht
+- Neues Budget per Sheet (`AddBudgetView`)
+- Budget löschen per Swipe in der Übersicht
+- Gesamtwerte in der Übersicht:
+  - Gesamtbudget
+  - Gesamtausgaben
+  - Verfügbar
+- Visuelle Übersicht mit kreisförmigen Progress-Indikatoren
+- Budgetkarten mit verbleibendem Betrag + linearem Budgetverbrauch
+- Budget-Detailansicht mit:
+  - Geplant / Ausgegeben / Verfügbar
+  - Liste aller Ausgaben eines Budgets
+  - Toggle „bezahlt / nicht bezahlt" pro Ausgabe
+- Neue Ausgabe per Sheet (`ExpenseAddView`)
+- Einzelne Ausgabe löschen per Swipe
+- Tab-Navigation: Home, Analyse, Einstellungen
+- Theme- und UI-Einstellungen:
+  - Dark Mode Toggle
+  - Schriftgröße
+  - Theme Picker (mehrere Farbschemata)
 
 ## Current Project Structure
 ```text
 Projektwoche1/
 ├── Models/
+│   ├── AppTheme.swift
+│   ├── ThemeManager.swift
 │   ├── Budget.swift
 │   └── Expense.swift
 ├── Views/
-│   ├── BudgetListView.swift
-│   └── AddBudgetView.swift
+│   ├── CashFlowTabView.swift
+│   └── SubViews/
+│       ├── BudgetListView.swift
+│       ├── BudgetDetailView.swift
+│       ├── AddBudgetView.swift
+│       ├── ExpenseAddView.swift
+│       ├── ProgressView.swift
+│       ├── SettingsView.swift
+│       └── AnalyseView.swift
 ├── ContentView.swift
 └── Projektwoche1App.swift
 ```
@@ -67,10 +90,3 @@ Projektwoche1/
 2. Scheme `Projektwoche1` auswählen.
 3. iOS Simulator wählen.
 4. Mit `⌘ + R` starten.
-
-## Roadmap (Short)
-- BudgetDetailView fertigstellen
-- AddExpenseView integrieren
-- Delete Flows für Budget & Expense abschließen
-- Summen & optional ProgressView finalisieren
-- MVP Smoke Test durchführen
