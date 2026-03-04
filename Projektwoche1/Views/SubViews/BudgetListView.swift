@@ -21,10 +21,10 @@ struct BudgetListView: View {
     }
     
     var body: some View {
-        Text("Gesamtbudget: \(totalBudget, format: .currency(code: "EUR"))")
-            .font(.headline)
-            .padding()
         NavigationStack {
+            Text("Gesamtbudget: \(totalBudget, format: .currency(code: "EUR"))")
+                .font(.headline)
+                .padding()
             List {
                 ForEach(budgets) { budget in
                     Section{
