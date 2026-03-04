@@ -11,6 +11,8 @@ import SwiftData
 struct CashFlowTabView: View {
     @State private var selection = 0
     @AppStorage("fontsize") private var fontSize = 14.0
+    @AppStorage("darkmode") private var darkMode = false
+    @EnvironmentObject var themeManager: ThemeManager
     var body: some View {
         TabView(selection: $selection) {
             Tab("Home", systemImage: "house", value: 0) {
@@ -23,14 +25,19 @@ struct CashFlowTabView: View {
             Tab("Einstellungen", systemImage: "gear", value: 2) {
                 SettingsView()
             }
+            
         }
         .font(.system(size: fontSize))
-        
+        .foregroundStyle(themeManager.currentTheme.textColor)
+        .tint(themeManager.currentTheme.tintColor)
+        .preferredColorScheme(darkMode ? .dark : .light)
     }
+    
 }
 
 
 #Preview {
     CashFlowTabView()
+        .environmentObject(ThemeManager()) 
         .modelContainer(for: [Budget.self, Expense.self])
 }

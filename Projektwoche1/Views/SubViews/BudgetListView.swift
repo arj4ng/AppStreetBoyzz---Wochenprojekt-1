@@ -8,82 +8,175 @@
 import SwiftUI
 import SwiftData
 
+//
+// BudgetListView.swift
+// Projektwoche1
+//
+// Created by Nils Adomeit on 02.03.26.
+//
+import SwiftUI
+import SwiftData
 struct BudgetListView: View {
-    
-    @Environment(\.modelContext) private var context
-    @Query private var budgets: [Budget]
-    
-    @State private var showSheet: Bool = false
-    @State private var showDetails: Bool = false
-    
-    var totalBudget: Double {
-        budgets.reduce(0) { $0 + $1.plannedAmount }
-    }
-    
-    var body: some View {
-        NavigationStack {
-            Text("Gesamtbudget: \(totalBudget, format: .currency(code: "EUR"))")
+  
+  @Environment(\.modelContext) private var context
+  @Query private var budgets: [Budget]
+  
+  @State private var showSheet: Bool = false
+  
+  var totalBudget: Double {
+    budgets.reduce(0) { $0 + $1.plannedAmount }
+  }
+  var totalExpenses: Double {
+    budgets.reduce(0) { $0 + $1.totalSpent }
+  }
+  
+  var totalRemaining: Double {
+    totalBudget - totalExpenses
+  }
+  
+  var overallUsage: Double {
+    guard totalBudget > 0 else { return 0 }
+    return min(max(totalExpenses / totalBudget, 0), 1)
+  }
+  
+  var body: some View {
+    NavigationStack {
+      List {
+        Section {
+          VStack(alignment: .leading, spacing: 14) {
+            HStack {
+              Text("Übersicht")
                 .font(.headline)
-                
-            List {
-                ForEach(budgets) { budget in
-                    Section{
-                        VStack(){
-                            HStack{
-                                Text(budget.name)
-                                    .bold()
-                                Spacer()
-                                Text("\(Int(budget.plannedAmount)) Euro")
-                                    .bold()
-                            }
-                            HStack{
-                                Text("Verbleibend:")
-                                Spacer()
-                                Text("\(Int(budget.remainingAmount)) Euro")
-                                    .foregroundStyle(
-                                        budget.remainingAmount < budget.plannedAmount * 0.1 ? .red : .green
-                                    )
-                            }
-                            ProgressView(budget: budget)
-                            .swipeActions(edge: .trailing) {
-                                Button(role: .destructive) {
-                                    context.delete(budget)
-                                }
-                            }
-                            NavigationLink("Details anzeigen"){
-                                BudgetDetailView(budget: budget)
-                            }.foregroundStyle(.blue)
-                            
-                        }
-                       
-                    }
-                }
-.padding(20)
-.background(Color.white.opacity(0.5))
-.cornerRadius(30)
-.shadow(color: .black.opacity(0.6), radius: 20, x: 0, y:8)
-                
+              Spacer()
+              Text("\(Int(overallUsage * 100))% genutzt")
+                .font(.caption)
+                .foregroundStyle(.secondary)
             }
             
-            .navigationTitle("Budgets")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showSheet = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
+            HStack(spacing: 12) {
+              CircularMetricView(
+                title: "Budget",
+                value: totalBudget.formatted(.currency(code: "EUR")),
+                progress: 1,
+                tint: .blue
+              )
+              
+              CircularMetricView(
+                title: "Ausgaben",
+                value: totalExpenses.formatted(.currency(code: "EUR")),
+                progress: overallUsage,
+                tint: overallUsage >= 0.9 ? .red : .orange
+              )
+              
+              CircularMetricView(
+                title: "Verfügbar",
+                value: totalRemaining.formatted(.currency(code: "EUR")),
+                progress: max(1 - overallUsage, 0),
+                tint: totalRemaining < 0 ? .red : .green
+              )
             }
-            .sheet(isPresented: $showSheet) {
-                AddBudgetView()
-                    .presentationDetents([.height(400), .large])
-            }
+          }
+          .padding(.vertical, 8)
         }
+        
+        Section("Deine Budgets") {
+          ForEach(budgets) { budget in
+            NavigationLink {
+              BudgetDetailView(budget: budget)
+            } label: {
+              VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                  Text(budget.name)
+                    .font(.headline)
+                  Spacer()
+                  Text(budget.plannedAmount, format: .currency(code: "EUR"))
+                    .font(.subheadline)
+                    .bold()
+                }
+                
+                HStack {
+                  Text("Verbleibend")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                  Spacer()
+                  Text(budget.remainingAmount, format: .currency(code: "EUR"))
+                    .font(.subheadline)
+                    .bold()
+                    .foregroundStyle(
+                      budget.remainingAmount < budget.plannedAmount * 0.1 ? .red : .green
+                    )
+                }
+                
+                ProgressView(budget: budget)
+              }
+            }
+            .swipeActions(edge: .trailing) {
+              Button(role: .destructive) {
+                context.delete(budget)
+              } label: {
+                Label("Löschen", systemImage: "trash")
+              }
+            }
+          } 
+        }
+      }
+      .listStyle(.insetGrouped)
+      .contentMargins(.top, 10, for: .scrollContent)
+      .navigationTitle("Budgets")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button {
+            showSheet = true
+          } label: {
+            Image(systemName: "plus")
+          }
+        }
+      }
+      .sheet(isPresented: $showSheet) {
+        AddBudgetView()
+          .presentationDetents([.height(400), .large])
+      }
     }
-    
+  }
+  
 }
-
+#Preview {
+  BudgetListView()
+    .modelContainer(for: [Budget.self], inMemory: true)
+}
+private struct CircularMetricView: View {
+  let title: String
+  let value: String
+  let progress: Double
+  let tint: Color
+  
+  var body: some View {
+    VStack {
+      Gauge(value: min(max(progress, 0), 1), in: 0...1) {
+      } currentValueLabel: {
+        Text("\(Int(min(max(progress, 0), 1) * 100))%")
+          .font(.headline)
+          .fontWeight(.semibold)
+      }
+      .gaugeStyle(.accessoryCircular)
+      .tint(tint)
+      .frame(width: 100, height: 55)
+      
+      Text(title)
+        .font(.caption)
+        .foregroundStyle(.secondary)
+      
+      Text(value)
+        .font(.subheadline)
+        .fontWeight(.bold)
+        .multilineTextAlignment(.center)
+        .lineLimit(1)
+        .minimumScaleFactor(0.7)
+    }
+    .frame(maxWidth: .infinity)
+  }
+}
 #Preview {
     BudgetListView()
         .modelContainer(for: [Budget.self], inMemory: true)

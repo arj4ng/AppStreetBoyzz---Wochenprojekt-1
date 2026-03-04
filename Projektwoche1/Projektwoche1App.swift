@@ -12,9 +12,13 @@ import SwiftData
 
 @main
 struct Projektwoche1App: App {
+    @StateObject private var themeManager = ThemeManager()
+    @AppStorage("darkmode") private var darkMode = false
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      CashFlowTabView()
+            .environmentObject(themeManager)
+            .preferredColorScheme(darkMode ? .dark : .light) //
     }
     .modelContainer(for: [Budget.self, Expense.self])
   }
