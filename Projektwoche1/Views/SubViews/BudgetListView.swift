@@ -43,15 +43,13 @@ struct BudgetListView: View {
     NavigationStack {
       List {
         Section {
-          VStack(alignment: .leading, spacing: 14) {
-            HStack {
+          VStack(alignment: .center) {
               Text("Übersicht")
-                .font(.headline)
+                .font(.largeTitle)
+                .fontWeight(.semibold)
               Spacer()
-              Text("\(Int(overallUsage * 100))% genutzt")
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            }
             
             HStack(spacing: 12) {
               CircularMetricView(
@@ -159,10 +157,11 @@ private struct CircularMetricView: View {
           .font(.headline)
           .fontWeight(.semibold)
       }
-      .gaugeStyle(.accessoryCircular)
+      .gaugeStyle(.accessoryCircularCapacity)
       .tint(tint)
-      .frame(width: 100, height: 55)
-      
+      .frame(width: 100, height: 90)
+      .scaleEffect(1.3)
+        
       Text(title)
         .font(.caption)
         .foregroundStyle(.secondary)
