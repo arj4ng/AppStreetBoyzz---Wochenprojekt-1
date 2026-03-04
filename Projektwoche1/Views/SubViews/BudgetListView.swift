@@ -19,11 +19,22 @@ struct BudgetListView: View {
     var totalBudget: Double {
         budgets.reduce(0) { $0 + $1.plannedAmount }
     }
+
+    var totalExpenses: Double {
+        budgets.reduce(0) { $0 + $1.totalSpent }
+    }
     
     var body: some View {
         NavigationStack {
-            Text("Gesamtbudget: \(totalBudget, format: .currency(code: "EUR"))")
-                .font(.headline)
+            VStack(spacing: 4) {
+                Text("Gesamtbudget: \(totalBudget, format: .currency(code: "EUR"))")
+                    .font(.title2)
+                    .bold()
+                Text("Gesamtausgaben: \(totalExpenses, format: .currency(code: "EUR"))")
+                    .opacity(0.5)
+            }
+            .font(.headline)
+            .padding()
                 
             List {
                 ForEach(budgets) { budget in
