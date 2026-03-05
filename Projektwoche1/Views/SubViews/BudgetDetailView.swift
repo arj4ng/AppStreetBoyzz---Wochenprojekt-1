@@ -93,8 +93,18 @@ struct BudgetDetailView: View {
                                 )
                                 .foregroundStyle(expense.isPaid ? .secondary : .primary)
                             }
+                            
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
+                                    deleteExpense(expense)
+                                } label: {
+                                    Label("Löschen", systemImage: "trash")
+                                }
+                                .tint(nil)
+                            }
                         }
-                        .onDelete(perform: deleteExpense)
+                        
+                        
                     }
                 }
             }
@@ -107,13 +117,11 @@ struct BudgetDetailView: View {
         .navigationTitle(budget.name)
     }
 
-    private func deleteExpense(at offsets: IndexSet) {
-        for index in offsets {
-            let expense = budget.expenses[index]
-            context.delete(expense)
-        }
+    private func deleteExpense(_ expense: Expense) {
+        context.delete(expense)
         try? context.save()
     }
+        
 
 }
 

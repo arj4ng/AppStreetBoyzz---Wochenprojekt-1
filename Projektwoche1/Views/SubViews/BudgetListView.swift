@@ -131,13 +131,14 @@ struct BudgetListView: View {
           }
         }
       }
+      .tint(nil)
       .sheet(isPresented: $showSheet) {
         AddBudgetView()
           .presentationDetents([.height(400), .large])
       }
     }
   }
-  
+        
 }
 #Preview {
   BudgetListView()

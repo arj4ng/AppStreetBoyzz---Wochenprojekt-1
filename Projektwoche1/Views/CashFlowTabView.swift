@@ -24,6 +24,7 @@ struct CashFlowTabView: View {
             }
             Tab("Einstellungen", systemImage: "gear", value: 2) {
                 SettingsView()
+                    .tint(themeManager.currentTheme.tintColor)
             }
             
         }

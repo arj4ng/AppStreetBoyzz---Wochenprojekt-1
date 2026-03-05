@@ -63,6 +63,7 @@ struct SettingsView: View {
         }
         .navigationTitle("Einstellungen")
         .navigationBarTitleDisplayMode(.inline)
+        .tint(themeManager.currentTheme.tintColor)
     }
 }
 
