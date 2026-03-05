@@ -1,17 +1,21 @@
 //
-//  AnalyseView.swift
+//  ReciptEditView.swift
 //  Projektwoche1
 //
-//  Created by Hendrik Puls on 04.03.26.
+//  Created by Hendrik Puls on 05.03.26.
 //
+
 
 import SwiftUI
 import PhotosUI
 import SwiftData
 
-struct ReciptView: View {
+struct ReciptEditView: View {
 
     @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
+
+    var recipt: Recipt
 
     @State private var selectedItem: PhotosPickerItem?
     @State private var selectedImage: UIImage?
@@ -23,7 +27,7 @@ struct ReciptView: View {
 
         VStack(spacing: 20) {
 
-            Text("Kassenbon hochladen")
+            Text("Beleg bearbeiten")
                 .font(.title)
 
             TextField("Titel", text: $title)
@@ -41,15 +45,26 @@ struct ReciptView: View {
             }
 
             PhotosPicker(selection: $selectedItem, matching: .images) {
-                Label("Beleg hinzufügen", systemImage: "photo")
+                Label("Neues Bild auswählen", systemImage: "photo")
             }
 
             Button("Speichern") {
-                saveRecipt()
+                saveChanges()
             }
             .buttonStyle(.borderedProminent)
+
         }
         .padding()
+
+        .onAppear {
+            title = recipt.title
+            amount = String(recipt.amount)
+
+            if let data = recipt.imageData {
+                selectedImage = UIImage(data: data)
+            }
+        }
+
         .onChange(of: selectedItem) {
             Task {
                 if let data = try? await selectedItem?.loadTransferable(type: Data.self),
@@ -60,20 +75,14 @@ struct ReciptView: View {
         }
     }
 
-    func saveRecipt() {
+    func saveChanges() {
 
-        let imageData = selectedImage?.jpegData(compressionQuality: 0.7)
+        recipt.title = title
+        recipt.amount = Double(amount) ?? 0
+        recipt.imageData = selectedImage?.jpegData(compressionQuality: 0.7)
 
-        let recipt = Recipt(
-            title: title,
-            amount: Double(amount) ?? 0,
-            imageData: imageData
-        )
-
-        context.insert(recipt)
         try? context.save()
+
+        dismiss()
     }
-}
-#Preview {
-    ReciptView()
 }
