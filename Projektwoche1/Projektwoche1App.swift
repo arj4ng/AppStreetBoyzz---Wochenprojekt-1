@@ -36,6 +36,6 @@ struct Projektwoche1App: App {
             }
         }
     }
-    .modelContainer(for: [Budget.self, Expense.self])
+    .modelContainer(for: [Budget.self, Expense.self, Recipt.self, MonthlyCost.self])
   }
 }

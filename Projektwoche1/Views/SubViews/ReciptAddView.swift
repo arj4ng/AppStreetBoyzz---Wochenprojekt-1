@@ -9,13 +9,13 @@ import SwiftUI
 import PhotosUI
 import SwiftData
 
-struct ReciptView: View {
+struct ReciptAddView: View {
 
     @Environment(\.modelContext) private var context
 
     @State private var selectedItem: PhotosPickerItem?
     @State private var selectedImage: UIImage?
-
+    @Environment(\.dismiss) private var dismiss
     @State private var title: String = ""
     @State private var amount: String = ""
 
@@ -46,6 +46,7 @@ struct ReciptView: View {
 
             Button("Speichern") {
                 saveRecipt()
+                    
             }
             .buttonStyle(.borderedProminent)
         }
@@ -72,8 +73,10 @@ struct ReciptView: View {
 
         context.insert(recipt)
         try? context.save()
+        
+        dismiss()
     }
 }
 #Preview {
-    ReciptView()
+    ReciptAddView()
 }

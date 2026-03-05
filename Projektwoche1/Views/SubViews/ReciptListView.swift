@@ -92,7 +92,7 @@ struct ReciptListView: View {
         .tint(nil)
         // Sheet für neuen Beleg
         .sheet(isPresented: $add) {
-            ReciptView()
+            ReciptAddView()
                 .presentationDetents([.height(450), .large])
         }
 

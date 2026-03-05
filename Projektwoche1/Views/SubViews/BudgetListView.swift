@@ -20,7 +20,7 @@ struct BudgetListView: View {
   
   @Environment(\.modelContext) private var context
   @Query private var budgets: [Budget]
-  
+  @State private var budgetToDelete: Budget?
   @State private var showSheet: Bool = false
   
   var totalBudget: Double {
@@ -110,7 +110,8 @@ struct BudgetListView: View {
             }
             .swipeActions(edge: .trailing) {
               Button(role: .destructive) {
-                context.delete(budget)
+//                context.delete(budget)
+                  budgetToDelete = budget
               } label: {
                 Label("Löschen", systemImage: "trash")
               }
@@ -136,8 +137,28 @@ struct BudgetListView: View {
         AddBudgetView()
           .presentationDetents([.height(400), .large])
       }
+      .alert(
+            "Budget wirklich löschen?",
+            isPresented: Binding(
+             get: { budgetToDelete != nil },
+             set: { if !$0 { budgetToDelete = nil } }
+            ),
+            presenting: budgetToDelete
+           ) { budget in
+            Button("Abbrechen", role: .cancel) {
+             budgetToDelete = nil
+            }
+            Button("Löschen", role: .destructive) {
+             context.delete(budget)
+             budgetToDelete = nil
+            }
+           } message: { budget in
+            Text("Möchtest du das Budget „\(budget.name)“ wirklich löschen?")
+           }
     }
+      
   }
+    
         
 }
 

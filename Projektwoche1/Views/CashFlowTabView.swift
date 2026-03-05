@@ -20,7 +20,7 @@ struct CashFlowTabView: View {
             }
             
             Tab("Fixkosten", systemImage: "eurosign", value: 1) {
-                MontlyCostView()
+                MonthlyCostView()
             }
             Tab("Quitungen", systemImage: "eurosign.gauge.chart.leftthird.topthird.rightthird", value: 2) {
                 ReciptListView()
@@ -43,5 +43,5 @@ struct CashFlowTabView: View {
 #Preview {
     CashFlowTabView()
         .environmentObject(ThemeManager()) 
-        .modelContainer(for: [Budget.self, Expense.self, Recipt.self])
+        .modelContainer(for: [Budget.self, Expense.self, Recipt.self, MonthlyCost.self])
 }
