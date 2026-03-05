@@ -20,7 +20,7 @@ struct CashFlowTabView: View {
             }
             
             Tab("Fixkosten", systemImage: "eurosign", value: 1) {
-                ReciptView()
+                MontlyCostView()
             }
             Tab("Quitungen", systemImage: "eurosign.gauge.chart.leftthird.topthird.rightthird", value: 2) {
                 ReciptView()
