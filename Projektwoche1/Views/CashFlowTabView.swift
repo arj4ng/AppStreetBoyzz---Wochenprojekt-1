@@ -19,10 +19,13 @@ struct CashFlowTabView: View {
                 BudgetListView()
             }
             
-            Tab("Quitungen", systemImage: "eurosign.gauge.chart.leftthird.topthird.rightthird", value: 1) {
+            Tab("Fixkosten", systemImage: "eurosign", value: 1) {
                 ReciptView()
             }
-            Tab("Einstellungen", systemImage: "gear", value: 2) {
+            Tab("Quitungen", systemImage: "eurosign.gauge.chart.leftthird.topthird.rightthird", value: 2) {
+                ReciptView()
+            }
+            Tab("Einstellungen", systemImage: "gear", value: 3) {
                 SettingsView()
                     .tint(themeManager.currentTheme.tintColor)
             }
