@@ -140,10 +140,7 @@ struct BudgetListView: View {
   }
         
 }
-#Preview {
-  BudgetListView()
-    .modelContainer(for: [Budget.self], inMemory: true)
-}
+
 private struct CircularMetricView: View {
   let title: String
   let value: String

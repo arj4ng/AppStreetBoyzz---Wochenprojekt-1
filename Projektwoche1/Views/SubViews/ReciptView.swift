@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct AnalyseView: View {
+struct ReciptView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("KASSENBONS HOCHLADEN")
     }
 }
 
 #Preview {
-    AnalyseView()
+    ReciptView()
 }

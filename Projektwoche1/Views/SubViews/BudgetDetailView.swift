@@ -83,7 +83,9 @@ struct BudgetDetailView: View {
                                         .font(.headline)
                                         .strikethrough(expense.isPaid)
                                         .foregroundStyle(expense.isPaid ? .secondary : .primary)
-
+                                    Text(expense.info)
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
                                 }
                                 Spacer()
 

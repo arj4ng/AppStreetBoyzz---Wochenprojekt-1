@@ -19,8 +19,8 @@ struct CashFlowTabView: View {
                 BudgetListView()
             }
             
-            Tab("Analyse", systemImage: "eurosign.gauge.chart.leftthird.topthird.rightthird", value: 1) {
-                AnalyseView()
+            Tab("Quitungen", systemImage: "eurosign.gauge.chart.leftthird.topthird.rightthird", value: 1) {
+                ReciptView()
             }
             Tab("Einstellungen", systemImage: "gear", value: 2) {
                 SettingsView()
