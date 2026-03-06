@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>Bootcamp Team Project</strong><br>
-  <sub>Wochenprojekt · Aktueller Stand</sub>
+  <sub>Wochenprojekt · Final Version</sub>
 </p>
 
 <p align="center">
@@ -10,13 +10,17 @@
   <img src="https://img.shields.io/badge/Framework-SwiftUI-0A84FF" alt="SwiftUI" />
   <img src="https://img.shields.io/badge/Data-SwiftData-34C759" alt="SwiftData" />
   <img src="https://img.shields.io/badge/Platform-iOS-lightgrey?logo=apple" alt="iOS" />
-  <img src="https://img.shields.io/badge/Status-In%20Progress-f59e0b" alt="In Progress" />
+  <img src="https://img.shields.io/badge/Status-Finished-22c55e" alt="Finished" />
 </p>
 
 ## About
-CashFlow hilft dabei, Budgets pro Kategorie im Blick zu behalten.
-Budgets und zugehörige Ausgaben werden in SwiftData gespeichert.
-Die App zeigt Summen, Restbudget und Budgetverbrauch visuell an.
+CashFlow ist eine iOS App zum Verwalten von persönlichen Finanzen mit Fokus auf:
+- Budgets
+- Ausgaben
+- Fixkosten
+- Quittungen (mit Bildimport)
+
+Die App nutzt SwiftData für Persistenz und bietet ein tab-basiertes UI mit Splash-Screen, Theme-Einstellungen und editierbaren Datenflows.
 
 ## Team
 <table>
@@ -41,52 +45,78 @@ Die App zeigt Summen, Restbudget und Budgetverbrauch visuell an.
 </table>
 
 ## Implemented Features
-- SwiftData Modelle `Budget` und `Expense` mit Relationship (`deleteRule: .cascade` auf Budget-Expenses)
-- Budget-Übersicht mit `@Query` und Navigation zur Detailansicht
-- Neues Budget per Sheet (`AddBudgetView`)
-- Budget löschen per Swipe in der Übersicht
-- Gesamtwerte in der Übersicht:
-  - Gesamtbudget
-  - Gesamtausgaben
-  - Verfügbar
-- Visuelle Übersicht mit kreisförmigen Progress-Indikatoren
-- Budgetkarten mit verbleibendem Betrag + linearem Budgetverbrauch
-- Budget-Detailansicht mit:
-  - Geplant / Ausgegeben / Verfügbar
-  - Liste aller Ausgaben eines Budgets
-  - Toggle „bezahlt / nicht bezahlt" pro Ausgabe
-- Neue Ausgabe per Sheet (`ExpenseAddView`)
-- Einzelne Ausgabe löschen per Swipe
-- Tab-Navigation: Home, Analyse, Einstellungen
-- Theme- und UI-Einstellungen:
-  - Dark Mode Toggle
+- Splash Screen mit Video-Intro und weichem Übergang zur App
+- Tab Navigation:
+  - Home (Budgets)
+  - Fixkosten
+  - Quittungen
+  - Einstellungen
+- Budget Management:
+  - Budget erstellen
+  - Budget löschen (mit Bestätigung)
+  - Budget-Detailansicht mit editierbaren Feldern
+  - Summenberechnung (geplant, ausgegeben, verfügbar)
+  - Fortschrittsanzeigen (Gauge + Progress)
+- Expense Management:
+  - Ausgabe hinzufügen
+  - Ausgabe löschen
+  - Ausgabe als bezahlt markieren (`isPaid`)
+  - Inline-Bearbeitung im Budget-Detail
+- Monthly Costs:
+  - Fixkosten hinzufügen und löschen
+  - Gesamtsumme der Fixkosten
+- Receipt Management:
+  - Beleg hinzufügen (`ReciptAddView`)
+  - Bildquelle: Kamera, Mediathek, Dateiimport
+  - Beleg bearbeiten (`ReciptEditView`)
+  - Beleg löschen (`ReciptListView`)
+- Settings & Theme:
+  - Dark Mode
   - Schriftgröße
-  - Theme Picker (mehrere Farbschemata)
+  - Theme Picker mit mehreren Farbschemata
+- Logging:
+  - Eigene App-Logs mit Zeitstempeln (`AppLog`)
+
+## Data Models
+- `Budget`
+- `Expense`
+- `MonthlyCost`
+- `Recipt`
+- `AppTheme` + `ThemeManager`
 
 ## Current Project Structure
 ```text
 Projektwoche1/
 ├── Models/
+│   ├── AppLog.swift
 │   ├── AppTheme.swift
 │   ├── ThemeManager.swift
 │   ├── Budget.swift
-│   └── Expense.swift
+│   ├── Expense.swift
+│   ├── MonthlyCost.swift
+│   └── Recipt.swift
 ├── Views/
 │   ├── CashFlowTabView.swift
+│   ├── SplashScreenView.swift
 │   └── SubViews/
 │       ├── BudgetListView.swift
 │       ├── BudgetDetailView.swift
 │       ├── AddBudgetView.swift
 │       ├── ExpenseAddView.swift
 │       ├── ProgressView.swift
-│       ├── SettingsView.swift
-│       └── AnalyseView.swift
-├── ContentView.swift
+│       ├── MontlyCostView.swift
+│       ├── MontlyAddView.swift
+│       ├── ReciptListView.swift
+│       ├── ReciptAddView.swift
+│       ├── ReciptEditView.swift
+│       └── SettingsView.swift
+├── Assets.xcassets/
+├── Splash Screen/
 └── Projektwoche1App.swift
 ```
 
 ## How To Run
 1. `Projektwoche1.xcodeproj` in Xcode öffnen.
 2. Scheme `Projektwoche1` auswählen.
-3. iOS Simulator wählen.
+3. iOS Simulator oder physisches Gerät wählen.
 4. Mit `⌘ + R` starten.
