@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct SettingsView: View {
     @AppStorage("darkmode") private var darkMode = false
     @AppStorage("fontsize") private var fontSize = 14.0
     @AppStorage("selectedTheme") private var selectedTheme = "light"
-    
+    @State private var audioPlayer: AVAudioPlayer?
     @EnvironmentObject var themeManager: ThemeManager
     
     private let themeOptions: [(id: String, title: String, color: Color)] = [
@@ -56,6 +57,9 @@ struct SettingsView: View {
                         }
                         Slider(value: $fontSize, in: 14...22)
                     }
+                    Button("Sound abspielen") {
+                        playSound()
+                    }
                 }
             }
             .onChange(of: selectedTheme) { _, newTheme in
@@ -64,9 +68,32 @@ struct SettingsView: View {
             .navigationTitle("Einstellungen")
             .navigationBarTitleDisplayMode(.inline)
             .tint(themeManager.currentTheme.tintColor)
-        }
-    }
-}
+            .onAppear {
+                           setupAudio()
+                       }
+                   }
+               }
+               
+               // MARK: - Audio Setup
+               func setupAudio() {
+                   guard let soundURL = Bundle.main.url(forResource: "meinSound", withExtension: "mp3") else {
+                       print("Sound-Datei nicht gefunden!")
+                       return
+                   }
+                   do {
+                       audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                       audioPlayer?.prepareToPlay()
+                   } catch {
+                       print("Fehler beim Laden des Sounds: \(error.localizedDescription)")
+                   }
+               }
+               
+               // MARK: - Play Sound
+               func playSound() {
+                   audioPlayer?.currentTime = 0
+                   audioPlayer?.play()
+               }
+           }
 
 #Preview {
 SettingsView()

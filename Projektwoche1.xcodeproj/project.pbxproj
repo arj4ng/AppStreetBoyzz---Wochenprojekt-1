@@ -6,9 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F423CE9E2F5AFAB300E5120B /* meinSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F423CE9D2F5AFAB300E5120B /* meinSound.mp3 */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A1B2C3D42F00000100112233 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DB8A47BD2D43AFD3001C2B3B /* Projektwoche1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Projektwoche1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F423CE9D2F5AFAB300E5120B /* meinSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = meinSound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,6 +38,7 @@
 		DB8A47B42D43AFD2001C2B3B = {
 			isa = PBXGroup;
 			children = (
+				F423CE9D2F5AFAB300E5120B /* meinSound.mp3 */,
 				A1B2C3D42F00000100112233 /* README.md */,
 				DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */,
 				DB8A47BE2D43AFD3001C2B3B /* Products */,
@@ -80,7 +86,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1610;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					DB8A47BC2D43AFD3001C2B3B = {
 						CreatedOnToolsVersion = 16.1;
@@ -111,6 +117,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F423CE9E2F5AFAB300E5120B /* meinSound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +169,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 74RY28FM6F;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -226,6 +234,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 74RY28FM6F;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -256,7 +265,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Projektwoche1/Preview Content\"";
-				DEVELOPMENT_TEAM = 74RY28FM6F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CashFlow;
@@ -295,7 +303,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Projektwoche1/Preview Content\"";
-				DEVELOPMENT_TEAM = 74RY28FM6F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CashFlow;
