@@ -26,15 +26,11 @@ extension AppTheme {
         tintColor: .cyan
     )
 
-    static let light = AppTheme(
-        textColor: .primary,
-        tintColor: .blue
-    )
-    
     static let blue = AppTheme(
         textColor: .primary,
         tintColor: .blue
     )
+    
     
     static let mint = AppTheme(
         textColor: .primary,

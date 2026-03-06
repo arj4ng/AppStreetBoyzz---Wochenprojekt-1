@@ -16,17 +16,16 @@ struct SettingsView: View {
     
     private let themeOptions: [(id: String, title: String, color: Color)] = [
         ("normal", "Standard", .blue),
-        ("light", "Light", .blue),
-        ("blue", "Blue", .blue),
+        ("blue", "Blau", .blue),
         ("cyan", "Cyan", .cyan),
-        ("mint", "Mint", .mint),
-        ("green", "Green", .green),
-        ("teal", "Teal", .teal),
+        ("mint", "Minze", .mint),
+        ("green", "Grün", .green),
+        ("teal", "Türkis", .teal),
         ("indigo", "Indigo", .indigo),
-        ("purple", "Purple", .purple),
+        ("purple", "Lila", .purple),
         ("pink", "Pink", .pink),
         ("orange", "Orange", .orange),
-        ("red", "Red", .red)
+        ("red", "Rot", .red)
     ]
     
     var body: some View {

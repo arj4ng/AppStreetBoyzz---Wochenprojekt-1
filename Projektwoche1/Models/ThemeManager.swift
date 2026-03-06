@@ -11,7 +11,7 @@ import SwiftUI
 class ThemeManager: ObservableObject {
     @AppStorage("selectedTheme") private var selectedTheme: String = "light"
 
-    @Published var currentTheme: AppTheme = .light
+    @Published var currentTheme: AppTheme = .blue
 
     init() {
         loadTheme()
@@ -26,8 +26,6 @@ class ThemeManager: ObservableObject {
         switch selectedTheme {
         case "normal":
             currentTheme = .normal
-        case "blue":
-            currentTheme = .blue
         case "cyan":
             currentTheme = .cyan
         case "mint":
@@ -47,7 +45,7 @@ class ThemeManager: ObservableObject {
         case "red":
             currentTheme = .red
         default:
-            currentTheme = .light
+            currentTheme = .blue
         }
     }
 }

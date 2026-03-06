@@ -16,6 +16,7 @@ class MonthlyCost: Identifiable {
     var id = UUID()
     var name: String
     var amount: Double
+    var isChecked: Bool = false
     
     init(id: UUID = UUID(), name: String, amount: Double) {
         self.id = id

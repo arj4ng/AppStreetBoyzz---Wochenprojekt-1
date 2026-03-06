@@ -40,11 +40,21 @@ struct MonthlyCostView: View {
                 List {
                     ForEach(costs) { cost in
                         HStack {
+
+                            Button {
+                                cost.isChecked.toggle()
+                                try? context.save()
+                            } label: {
+                                Image(systemName: cost.isChecked ? "checkmark.circle.fill" : "circle")
+                            }
+
                             Text(cost.name)
-                            
+                                .strikethrough(cost.isChecked)
+
                             Spacer()
-                            
+
                             Text(cost.amount, format: .currency(code: "EUR"))
+                                .strikethrough(cost.isChecked)
                         }
                     }
                     .onDelete(perform: deleteCost)
