@@ -123,6 +123,7 @@ struct BudgetListView: View {
       .contentMargins(.top, 10, for: .scrollContent)
       .navigationTitle("CashFlow")
       .navigationBarTitleDisplayMode(.inline)
+        
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
           Button {

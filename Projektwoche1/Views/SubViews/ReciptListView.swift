@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import PhotosUI
 
 struct ReciptListView: View {
 
@@ -8,6 +9,9 @@ struct ReciptListView: View {
 
     @State private var add = false
     @State private var selectedRecipt: Recipt?
+
+    @State private var selectedItem: PhotosPickerItem?
+    @State private var selectedImage: UIImage?
 
     var body: some View {
 
@@ -56,40 +60,55 @@ struct ReciptListView: View {
                     // Swipe Actions
                     .swipeActions(edge: .trailing) {
 
-                        // Löschen
                         Button(role: .destructive) {
                             deleteRecipt(recipt)
                         } label: {
                             Label("Löschen", systemImage: "trash")
                         }
+                        .tint(nil)
                     }
 
                     .swipeActions(edge: .leading) {
 
-                        // Bearbeiten
                         Button {
                             selectedRecipt = recipt
                         } label: {
                             Label("Bearbeiten", systemImage: "pencil")
                         }
                         .tint(.blue)
+                       
                     }
                 }
             }
 
             .navigationTitle("Belege")
+            .navigationBarTitleDisplayMode(.inline)
 
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         add.toggle()
                     } label: {
-                        Label("Beleg hinzufügen", systemImage: "plus")
+                        Image(systemName: "plus")
                     }
+                    .tint(nil)
+                }
+
+            }
+        }
+
+        // Bild laden wenn ausgewählt
+        .onChange(of: selectedItem) { _, newItem in
+            Task {
+
+                if let data = try? await newItem?.loadTransferable(type: Data.self),
+                   let image = UIImage(data: data) {
+
+                    selectedImage = image
                 }
             }
         }
-        .tint(nil)
+
         // Sheet für neuen Beleg
         .sheet(isPresented: $add) {
             ReciptAddView()

@@ -32,9 +32,7 @@ struct MonthlyCostView: View {
     var body: some View {
         
         NavigationStack {
-            
             VStack {
-                
                 Text("Fixkosten gesamt: \(totalCosts, format: .currency(code: "EUR"))")
                     .font(.headline)
                     .padding()
@@ -52,42 +50,32 @@ struct MonthlyCostView: View {
                     .onDelete(perform: deleteCost)
                 }
                 
-                VStack {
-                    TextField("Kostenname", text: $name)
-                        .textFieldStyle(.roundedBorder)
-                    
-                    TextField("Betrag", text: $amount)
-                        .keyboardType(.decimalPad)
-                        .textFieldStyle(.roundedBorder)
-                        .onSubmit { addCost() }
-                    
-                    Button("Fixkosten hinzufügen") {
-                        addCost()
-                        
-                    }
-                    
-                    .buttonStyle(.borderedProminent)
-                    
-                }
+
                 
-                .padding()
+
             }
-        
+            .toolbar {
+              ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                  showSheet = true
+                } label: {
+                  Image(systemName: "plus")
+                }
+              }
+            }
+            .sheet(isPresented: $showSheet) {
+                MontlyAddView()
+                    .presentationDetents([.height(400), .large])
+            }
             .navigationTitle("Fixkosten")
+            .navigationBarTitleDisplayMode(.inline)
             
         }
+
         
     }
     
-    func addCost() {
-            guard let value = Double(amount) else { return }
-            
-            let cost = MonthlyCost(name: name, amount: value)
-            context.insert(cost)
-            
-            name = ""
-            amount = ""
-        }
+
     
     func deleteCost(at offsets: IndexSet) {
         for index in offsets {

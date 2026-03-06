@@ -17,10 +17,11 @@ struct ReciptAddView: View {
     @State private var showSourceDialog: Bool = false
     @State private var showCamera: Bool = false
     @State private var showFileImporter: Bool = false
+    @State private var showPhotoPicker: Bool = false
     @State private var selectedImage: UIImage?
     @Environment(\.dismiss) private var dismiss
     @State private var title: String = ""
-    @State private var amount: String = ""
+    @State  var amount: Double = 0.0
 
     var body: some View {
 
@@ -32,10 +33,13 @@ struct ReciptAddView: View {
             TextField("Titel", text: $title)
                 .textFieldStyle(.roundedBorder)
 
-            TextField("Betrag", text: $amount)
-                .keyboardType(.decimalPad)
-                .textFieldStyle(.roundedBorder)
-
+            TextField(
+                "Betrag",
+                value: $amount,
+                format: .number
+            )
+            .keyboardType(.decimalPad)
+            Slider(value: $amount, in: 0...3000, step: 50)
             if let image = selectedImage {
                 Image(uiImage: image)
                     .resizable()
@@ -56,36 +60,37 @@ struct ReciptAddView: View {
             .buttonStyle(.borderedProminent)
         }
         .padding()
-        .onChange(of: selectedItem) {
+        .onChange(of: selectedItem) { _, newItem in
             Task {
-                if let data = try? await selectedItem?.loadTransferable(type: Data.self),
+                if let data = try? await newItem?.loadTransferable(type: Data.self),
                    let uiImage = UIImage(data: data) {
                     selectedImage = uiImage
                 }
             }
         }
         .confirmationDialog("Bildquelle wählen", isPresented: $showSourceDialog, titleVisibility: .visible) {
-            Button("Foto aufnehmen") {
+              Button("Foto aufnehmen") {
                 showCamera = true
-            }
-            PhotosPicker(selection: $selectedItem, matching: .images) {
-                Text("Aus Mediathek wählen")
-            }
-            Button("Datei auswählen") {
+              }
+              Button("Aus Mediathek wählen") {
+                showPhotoPicker = true
+              }
+              Button("Datei auswählen") {
                 showFileImporter = true
+              }
             }
-        }
-        .sheet(isPresented: $showCamera) {
-            CameraPicker(image: $selectedImage)
-        }
-        .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.image]) { result in
-            if case .success(let url) = result,
-               let data = try? Data(contentsOf: url),
-               let uiImage = UIImage(data: data) {
+            .photosPicker(isPresented: $showPhotoPicker, selection: $selectedItem, matching: .images)
+            .sheet(isPresented: $showCamera) {
+              CameraPicker(image: $selectedImage)
+            }
+            .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.image]) { result in
+              if case .success(let url) = result,
+                let data = try? Data(contentsOf: url),
+                let uiImage = UIImage(data: data) {
                 selectedImage = uiImage
+              }
             }
-        }
-    }
+          }
 
     func saveRecipt() {
 
@@ -93,7 +98,7 @@ struct ReciptAddView: View {
 
         let recipt = Recipt(
             title: title,
-            amount: Double(amount) ?? 0,
+            amount: amount,
             imageData: imageData
         )
 
