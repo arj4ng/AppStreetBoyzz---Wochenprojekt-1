@@ -72,9 +72,10 @@ struct BudgetDetailView: View {
                         }
 
                         Gauge(value: budget.totalSpent, in: 0...budget.plannedAmount) {
-                            EmptyView()
+                          
                         }
                         .gaugeStyle(.accessoryLinearCapacity)
+                        
                     }
 
                 }
@@ -182,10 +183,11 @@ struct BudgetDetailView: View {
                         addExpense.toggle()
                     } label: {
                         Image(systemName: "plus")
-                            .foregroundStyle(.white)
+                            
                     }
                     .buttonStyle(.borderedProminent)
                     .buttonBorderShape(.circle)
+                    .tint(nil)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.trailing, -4)
@@ -219,7 +221,7 @@ struct BudgetDetailView: View {
             }
 
             ToolbarItem(placement: .topBarTrailing) {
-                Button(isEditing ? "Done" : "Edit") {
+                Button(isEditing ? "Fertig" : "Bearbeiten") {
                     isEditing.toggle()
                 }
             }
